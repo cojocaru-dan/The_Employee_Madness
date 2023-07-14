@@ -4,6 +4,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
+  const [equipment, setEquipment] = useState(employee?.equipment ?? "");
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +15,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         name,
         level,
         position,
+        equipment
       });
     }
 
@@ -21,6 +23,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       name,
       level,
       position,
+      equipment
     });
   };
 
@@ -54,6 +57,31 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           name="position"
           id="position"
         />
+      </div>
+
+      <div className="control">
+        <label htmlFor="equipment">Equipment:</label>
+          <label htmlFor="equipment-name">Equipment Name:</label>
+            <input
+              value={equipment.name}
+              onChange={(e) => setEquipment({...equipment, name: e.target.value})}
+              name="equipment-name"
+              id="equipment-name"
+            />
+          <label htmlFor="equipment-type">Equipment Type:</label>
+            <input
+              value={equipment.type}
+              onChange={(e) => setEquipment({...equipment, type: e.target.value})}
+              name="equipment-type"
+              id="equipment-type"
+            />
+          <label htmlFor="equipment-amount">Equipment Amount:</label>
+            <input
+              value={equipment.amount}
+              onChange={(e) => setEquipment({...equipment, amount: e.target.value})}
+              name="equipment-amount"
+              id="equipment-amount"
+            />
       </div>
 
       <div className="buttons">

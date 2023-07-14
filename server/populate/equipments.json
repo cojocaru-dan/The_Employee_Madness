@@ -1,0 +1,18 @@
+[
+    {"name": "Laptop", "type": "technical equipment", "amount": 1},
+    {"name": "Desk", "type": "technical equipment", "amount": 1},
+    {"name": "Phone", "type": "technical equipment", "amount": 1},
+    {"name": "Phone", "type": "technical equipment", "amount": 2},
+    {"name": "Chair", "type": "technical equipment", "amount": 1},
+    {"name": "Printer", "type": "technical equipment", "amount": 2},
+    {"name": "Documents", "type": "work equipment", "amount": 7},
+    {"name": "Paper", "type": "work equipment", "amount": 50},
+    {"name": "Notebooks", "type": "work equipment", "amount": 3},
+    {"name": "Pens", "type": "work equipment", "amount": 12},
+    {"name": "IT Accesories", "type": "technical equipment", "amount": 9},
+    {"name": "Badge", "type": "technical equipment", "amount": 1},
+    {"name": "Footwear", "type": "protection equipment", "amount": 3},
+    {"name": "Clothing", "type": "protection equipment", "amount": 2},
+    {"name": "Headphones", "type": "protection equipment", "amount": 2},
+    {"name": "Gloves", "type": "protection equipment", "amount": 4}
+]

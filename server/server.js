@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
+const cors = require("cors");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -12,6 +13,7 @@ if (!MONGO_URL) {
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/api/employees/", async (req, res) => {
   const employees = await EmployeeModel.find().sort({ created: "desc" });

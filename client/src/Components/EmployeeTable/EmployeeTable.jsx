@@ -9,6 +9,7 @@ const EmployeeTable = ({ employees, onDelete }) => (
           <th>Name</th>
           <th>Level</th>
           <th>Position</th>
+          <th>Equipment</th>
           <th />
         </tr>
       </thead>
@@ -18,6 +19,7 @@ const EmployeeTable = ({ employees, onDelete }) => (
             <td>{employee.name}</td>
             <td>{employee.level}</td>
             <td>{employee.position}</td>
+            <td>{Object.entries(employee.equipment).map((keyValue) => (<p key={keyValue}>{keyValue[0]}:  {keyValue[1]}</p>))}</td>
             <td>
               <Link to={`/update/${employee._id}`}>
                 <button type="button">Update</button>
