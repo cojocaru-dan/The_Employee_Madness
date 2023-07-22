@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [name, setName] = useState(employee?.name ?? "");
   const [level, setLevel] = useState(employee?.level ?? "");
   const [position, setPosition] = useState(employee?.position ?? "");
   const [equipment, setEquipment] = useState(employee?.equipment ?? "");
+  const [allEquipments, setAllEquipments] = useState(null);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8080/equipments")
+      .then(res => res.json())
+      .then(equipments => setAllEquipments(equipments));
+  }, []);
+
+  function handleAssignEquipment(event) {
+    const [selectedEquipmentName, selectedEquipmentAmount] = event.target.value.split(",");
+    const selectedEquipment = allEquipments.find(equipment => equipment.name === selectedEquipmentName && equipment.amount === Number(selectedEquipmentAmount));
+    setEquipment({...selectedEquipment});
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -82,6 +95,12 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
               name="equipment-amount"
               id="equipment-amount"
             />
+        <label htmlFor="equipment-dropdown">Assign equipment:
+          <select name="equipment-dropdown" onChange={handleAssignEquipment}>
+            <option value="" hidden></option>
+            {allEquipments && allEquipments.map((equipment, idx) => <option value={[equipment.name, equipment.amount]} key={idx}>{equipment.name}</option>)}
+          </select>
+        </label>
       </div>
 
       <div className="buttons">

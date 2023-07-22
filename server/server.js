@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const cors = require("cors");
+const readFile = require("./ReadFile");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -57,6 +58,11 @@ app.delete("/api/employees/:id", async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+});
+
+app.get("/equipments", (req, res) => {
+  const equipmentsData = readFile("./populate/equipments.json");
+  return res.json(equipmentsData);
 });
 
 const main = async () => {
