@@ -40,6 +40,7 @@ function EmployeesSearcher() {
               <th>Level</th>
               <th>Position</th>
               <th>Equipment</th>
+              <th>FavouriteBrand</th>
               <th />
             </tr>
           </thead>
@@ -49,7 +50,8 @@ function EmployeesSearcher() {
                 <td>{employee.name}</td>
                 <td>{employee.level}</td>
                 <td>{employee.position}</td>
-                <td>{Object.entries(employee.equipment).map((keyValue) => (<p key={keyValue}>{keyValue[0]}:  {keyValue[1]}</p>))}</td>
+                <td>|name: {employee.equipment.name}|----|type: {employee.equipment.type}|----|amount: {employee.equipment.amount}|</td>
+                <td>{employee.favouriteBrand.favouriteBrand}</td>
                 <td>
                   <Link to={`/update/${employee._id}`}>
                     <button type="button">Update</button>

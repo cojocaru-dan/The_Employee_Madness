@@ -101,3 +101,22 @@ button {
 .grow {
   flex: 1;
 }
+
+ul.pagination {
+  display: table;
+  margin: 0 auto;
+}
+
+ul.pagination li {
+  display: inline-block;
+  margin-right: 20px;
+  padding: 8px;
+}
+
+ul.pagination li.change-page {
+  cursor: pointer;
+}
+
+ul.pagination li.change-page:hover {
+  background:hotpink;
+}

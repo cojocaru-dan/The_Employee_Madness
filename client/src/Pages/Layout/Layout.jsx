@@ -4,7 +4,7 @@ import "./Layout.css";
 
 const Layout = () => (
   <div className="Layout">
-    <nav>
+    <nav className="Layout">
       <ul>
         <li className="grow">
           <Link to="/">Employees</Link>

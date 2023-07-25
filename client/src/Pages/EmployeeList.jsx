@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
+import Pagination from "../Components/Pagination/Pagination";
 const levels = require("../levels.json");
 const positions = require("../positions.json");
 
@@ -75,7 +76,9 @@ const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [employeesCopy, setEmployeesCopy] = useState(null);
-  console.log(employees);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeesPerPage, setEmployeesPerPage] = useState(10);
+
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -87,9 +90,11 @@ const EmployeeList = () => {
 
   const handleSearchInput = (event) => {
     if (positions.includes(event.target.value)) {
-      setEmployees((empoyees) => employees.filter((employee) => employee.position === event.target.value)); 
+      setEmployees((empoyees) => employees.filter((employee) => employee.position === event.target.value));
+      setCurrentPage(1); 
     } else if (levels.includes(event.target.value)) {
       setEmployees((employees) => employees.filter((employee) => employee.level === event.target.value));
+      setCurrentPage(1);
     } else {
       setEmployees(employeesCopy);
     }
@@ -99,6 +104,19 @@ const EmployeeList = () => {
     const option = event.target.value;
     const sortedEmployees = sortEmployeesByOption(employeesCopy, option);
     setEmployees(sortedEmployees);
+    setCurrentPage(1);
+  };
+
+  const changeToPrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const changeToNext = () => {
+    if (currentPage < Math.ceil(employees.length / employeesPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   useEffect(() => {
@@ -114,6 +132,8 @@ const EmployeeList = () => {
     return <Loading />;
   }
 
+  const currentDisplayedEmployees = employees.slice((currentPage - 1) * employeesPerPage, currentPage * employeesPerPage);
+  
   return (
     <div className="EmployeeList">
       <select onChange={handleSelectOption}>
@@ -125,7 +145,18 @@ const EmployeeList = () => {
         <option value="Level">Level</option>
       </select>
       <input type="search" placeholder="Search by Position/Level" onChange={handleSearchInput}/>
-      <EmployeeTable employees={employees} onDelete={handleDelete} />
+      <EmployeeTable 
+        employees={employees}
+        currentDisplayedEmployees={currentDisplayedEmployees} 
+        onDelete={handleDelete} 
+      />
+      <Pagination 
+        totalEmployeesNumber={employees.length} 
+        employeesPerPage={employeesPerPage}
+        changeToPrev={changeToPrev}
+        changeToNext={changeToNext}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

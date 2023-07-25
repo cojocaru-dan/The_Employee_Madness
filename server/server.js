@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const cors = require("cors");
 const readFile = require("./ReadFile");
+const favouriteBrandModel = require("./db/favouriteBrand.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -17,12 +18,12 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/api/employees/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  const employees = await EmployeeModel.find().populate("favouriteBrand").sort({ created: "desc" });
   return res.json(employees);
 });
 
 app.get("/api/employees/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
+  const employee = await EmployeeModel.findById(req.params.id).populate("favouriteBrand");
   return res.json(employee);
 });
 
@@ -63,6 +64,11 @@ app.delete("/api/employees/:id", async (req, res, next) => {
 app.get("/equipments", (req, res) => {
   const equipmentsData = readFile("./populate/equipments.json");
   return res.json(equipmentsData);
+});
+
+app.get("/brands", async (req, res) => {
+  const brandsData = await favouriteBrandModel.find(); 
+  return res.json(brandsData);
 });
 
 const main = async () => {

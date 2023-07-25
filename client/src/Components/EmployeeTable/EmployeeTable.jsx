@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 let missingEmployees = [];
 
-const EmployeeTable = ({ employees, onDelete }) => {
+const EmployeeTable = ({ employees, currentDisplayedEmployees, onDelete }) => {
   
   const handleCheckbox = (event) => {
     const id = event.target.id;
@@ -34,17 +34,19 @@ const EmployeeTable = ({ employees, onDelete }) => {
                   <th>Level</th>
                   <th>Position</th>
                   <th>Equipment</th>
+                  <th>FavouriteBrand</th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {employees.map((employee) => (
+                {currentDisplayedEmployees.map((employee) => (
                   <tr key={employee._id}>
                     <td><input type="checkbox" id={employee._id} onClick={handleCheckbox}/></td>
                     <td>{employee.name}</td>
                     <td>{employee.level}</td>
                     <td>{employee.position}</td>
-                    <td>{Object.entries(employee.equipment).map((keyValue) => (<p key={keyValue}>{keyValue[0]}:  {keyValue[1]}</p>))}</td>
+                    <td>|name: {employee.equipment.name}|----|type: {employee.equipment.type}|----|amount: {employee.equipment.amount}|</td>
+                    <td>{employee.favouriteBrand.favouriteBrand}</td>
                     <td>
                       <Link to={`/update/${employee._id}`}>
                         <button type="button">Update</button>
