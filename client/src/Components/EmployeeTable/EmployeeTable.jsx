@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 let missingEmployees = [];
 
-const EmployeeTable = ({ employees, currentDisplayedEmployees, onDelete }) => {
+const EmployeeTable = ({ employees, currentDisplayedEmployees, onDelete, handleSortByName }) => {
   
   const handleCheckbox = (event) => {
     const id = event.target.id;
@@ -30,7 +30,7 @@ const EmployeeTable = ({ employees, currentDisplayedEmployees, onDelete }) => {
               <thead>
                 <tr>
                   <th>Present</th>
-                  <th>Name</th>
+                  <th><button onClick={handleSortByName}>Name</button></th>
                   <th>Level</th>
                   <th>Position</th>
                   <th>Equipment</th>

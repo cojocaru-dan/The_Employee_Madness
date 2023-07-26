@@ -72,12 +72,31 @@ const sortEmployeesByOption = (employeesCopy, option) => {
   return [...sortedEmployees];
 }
 
+const sortEmployeesByName = (employees, setEmployees, sortByName, setSortByName) => {
+  if (sortByName === "asc") {
+    setEmployees(employees.sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+      else if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+      else return 0;
+    }));
+    setSortByName("desc");
+  } else if (sortByName === "desc") {
+    setEmployees(employees.sort((a, b) => {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+      else if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+      else return 0;
+    }));
+    setSortByName("asc");
+  }
+}
+
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [employeesCopy, setEmployeesCopy] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [employeesPerPage, setEmployeesPerPage] = useState(10);
+  const [sortByName, setSortByName] = useState("asc");
 
 
   const handleDelete = (id) => {
@@ -128,6 +147,8 @@ const EmployeeList = () => {
       })
   }, []);
 
+  const handleSortByName = () => sortEmployeesByName(employees, setEmployees, sortByName, setSortByName);
+
   if (loading) {
     return <Loading />;
   }
@@ -149,10 +170,9 @@ const EmployeeList = () => {
         employees={employees}
         currentDisplayedEmployees={currentDisplayedEmployees} 
         onDelete={handleDelete} 
+        handleSortByName={handleSortByName}
       />
       <Pagination 
-        totalEmployeesNumber={employees.length} 
-        employeesPerPage={employeesPerPage}
         changeToPrev={changeToPrev}
         changeToNext={changeToNext}
         currentPage={currentPage}
